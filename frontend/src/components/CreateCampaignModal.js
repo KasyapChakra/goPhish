@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Modal, Text, TextInput, Textarea, Button, Group } from '@mantine/core';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
+import axios from 'axios'; // Import Axios for making API calls
 
 function CreateCampaignModal({ opened, onClose }) {
   const [participants, setParticipants] = useState([{ name: '', email: '' }]);
   const [additionalContext, setAdditionalContext] = useState('');
+  const [loading, setLoading] = useState(false); // Track loading state
+  const [errorMessage, setErrorMessage] = useState(''); // Track error messages
+  const [successMessage, setSuccessMessage] = useState(''); // Track success messages
 
   // Function to handle adding a new participant field
   const addParticipantField = () => {
@@ -24,9 +28,40 @@ function CreateCampaignModal({ opened, onClose }) {
     setParticipants(newParticipants);
   };
 
-  // Function for "Begin Campaign" button (currently just a placeholder)
-  const handleBeginCampaign = () => {
-    console.log('Campaign Started', { participants, additionalContext });
+  // Function to send the campaign request to the backend
+  const handleBeginCampaign = async () => {
+    setLoading(true);
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    const campaignData = {
+      participants,
+      additional_context: additionalContext,
+    };
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/campaign/create_campaign`, campaignData);
+      if (response.data.status === 'success') {
+        setSuccessMessage('Campaign started successfully. Emails are being sent!');
+        // Close the modal after a small delay to allow the user to see the message
+        setTimeout(() => {
+          onClose(); // Close the modal
+          resetFields(); // Reset fields after modal is closed
+          setLoading(false);
+        }, 1000); // Wait for 1 second before closing
+      }
+    } catch (error) {
+      console.log(error)
+      setErrorMessage('Failed to start the campaign. Please try again.');
+      setLoading(false);
+    }
+  };
+
+   const resetFields = () => {
+    setParticipants([{ name: '', email: '' }]); // Reset to one empty participant
+    setAdditionalContext(''); // Clear additional context
+    setErrorMessage(''); // Clear error message
+    setSuccessMessage(''); // Clear success message
   };
 
   return (
@@ -104,14 +139,19 @@ function CreateCampaignModal({ opened, onClose }) {
         />
       </div>
 
+      {/* Error and Success Messages */}
+      {errorMessage && <Text color="red" mb="sm">{errorMessage}</Text>}
+      {successMessage && <Text color="green" mb="sm">{successMessage}</Text>}
+
       {/* Begin Campaign Button */}
       <Button
         color="violet" // Changed button color to purple
         fullWidth
         size="lg"
         onClick={handleBeginCampaign}
+        loading={loading} // Show loading spinner when the button is clicked
       >
-        Begin Campaign
+        {loading ? 'Sending...' : 'Begin Campaign'}
       </Button>
     </Modal>
   );

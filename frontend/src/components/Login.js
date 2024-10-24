@@ -87,7 +87,7 @@ function Login() {
         <form
           onSubmit={handleSubmit}
           style={{
-            textAlign: 'center',
+            textAlign: 'left',
           }}
         >
           <TextInput
@@ -104,7 +104,7 @@ function Login() {
               label: {
                 fontSize: '14px',
                 fontWeight: 500,
-                marginBottom: '10px',
+                marginBottom: '6px',
                 color: '#334155',
                 textAlign: 'left', // Align the label to the left
               },
@@ -113,8 +113,7 @@ function Login() {
                 border: 'none',
                 borderBottom: '2px solid #e2e8f0', // Only bottom border
                 borderRadius: 0,
-                marginTop: '10px',
-                width: '80%',
+                width: '100%',
                 transition: 'border-color 0.3s ease',
                 '&:focus': {
                   borderBottomColor: '#3b82f6', // Highlight bottom border on focus
@@ -149,8 +148,7 @@ function Login() {
                 border: 'none',
                 borderBottom: '2px solid #e2e8f0', // Only bottom border
                 borderRadius: 0,
-                marginTop: '10px',
-                width: '80%', // Make the input field take the full width
+                width: '100%', // Make the input field take the full width
                 transition: 'border-color 0.3s ease',
                 '&:focus': {
                   borderBottomColor: '#3b82f6', // Highlight bottom border on focus
@@ -162,13 +160,15 @@ function Login() {
               },
             }}
           />
-          <br />
+          <br/>
           {passwordError && (
+            <>
             <Text size="sm" style={{ marginTop: '5px', color: 'red',}}>
               {passwordError}
             </Text>
+            <br />
+            </>
           )}
-          <br />
 
           <Button
             fullWidth
@@ -184,7 +184,7 @@ function Login() {
               border: 'none', // Remove border around button
               transition: 'background-color 0.2s ease',
               marginBottom: '16px', // Add more padding below the button
-              width: '80%', // Make the button full width
+              width: '100%', // Make the button full width
             }}
             styles={{
               root: {

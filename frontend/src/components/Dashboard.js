@@ -150,23 +150,16 @@ function Dashboard() {
             size="md"
             type="submit"
             onClick={() => setModalOpened(true)}
+            color='violet'
             style={{
-              backgroundColor: '#634FA2',
               height: '42px', // Make the button taller
               borderRadius: '6px',
               fontWeight: 500,
-              fontSize: '12px', // Slightly larger font size for readability
+              fontSize: '15px', // Slightly larger font size for readability
               color: 'white', // Make text white
               border: 'none', // Remove border around button
               transition: 'background-color 0.2s ease',
               width: '20%', // Make the button full width
-            }}
-            styles={{
-              root: {
-                '&:hover': {
-                  backgroundColor: '#483973',
-                },
-              },
             }}
           >
             + New Campaign
@@ -206,8 +199,6 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* Create Campaign Modal */}
-      {console.log("MODAL STATE ", modalOpened)}
       <CreateCampaignModal opened={modalOpened} onClose={() => setModalOpened(false)} />
     </div>
   );
