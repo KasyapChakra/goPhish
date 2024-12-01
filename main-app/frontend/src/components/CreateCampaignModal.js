@@ -40,6 +40,8 @@ function CreateCampaignModal({ opened, onClose }) {
     };
 
     try {
+      console.log("heres the port")
+      console.log(process.env.REACT_APP_BACKEND_URL)
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/campaign/create_campaign`, campaignData);
       if (response.data.status === 'success') {
         setSuccessMessage('Campaign started successfully. Emails are being sent!');

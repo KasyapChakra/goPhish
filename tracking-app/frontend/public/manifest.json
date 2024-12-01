@@ -1,0 +1,25 @@
+{
+  "short_name": "Penn Software",
+  "name": "Penn Student Software Portal",
+  "icons": [
+    {
+      "src": "Penn Logo.svg",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "Penn Logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192"
+    },
+    {
+      "src": "Penn Logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#011F5B",
+  "background_color": "#ffffff"
+}
