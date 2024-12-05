@@ -1,8 +1,7 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import List, Optional
-from datetime import datetime
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import os
 import uvicorn
 
@@ -50,6 +49,11 @@ page_views_db = []
 campaigns_db = []
 page_view_counter = 1
 campaign_counter = 1
+
+# Mount static files
+static_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "build")
+if os.path.exists(static_path):
+    app.mount("/static", StaticFiles(directory=os.path.join(static_path, "static")), name="static")
 
 @app.get("/")
 async def root():
@@ -108,6 +112,14 @@ async def reset_campaign(campaign_id: str):
     global page_views_db
     page_views_db = [view for view in page_views_db if view.campaign_id != campaign_id]
     return {"message": f"Reset tracking data for campaign: {campaign_id}"}
+
+@app.get("/{full_path:path}")
+async def serve_frontend(full_path: str):
+    """Serve frontend files for any unmatched routes"""
+    frontend_path = os.path.join(static_path, "index.html")
+    if os.path.exists(frontend_path):
+        return FileResponse(frontend_path)
+    raise HTTPException(status_code=404, detail="File not found")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
