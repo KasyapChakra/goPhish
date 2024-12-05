@@ -54,7 +54,7 @@ function MetricsDashboard() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/track/pageview');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/track/pageview`);
       const data = response.data;
       setPageViews(data);
 
@@ -106,7 +106,7 @@ function MetricsDashboard() {
 
   const handleResetCampaign = async (campaignId) => {
     try {
-      await axios.delete(`http://localhost:8000/track/campaign/${campaignId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/track/campaign/${campaignId}`);
       toast({
         title: "Campaign Reset",
         description: `Successfully reset tracking data for campaign: ${campaignId}`,

@@ -42,7 +42,7 @@ const PhishingPage = () => {
   useEffect(() => {
     const trackPageView = async () => {
       try {
-        const response = await axios.post('http://localhost:8000/track/pageview', {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/track/pageview`, {
           campaign_id: "upenn-tech-bundle-12-01-2024",
           page_type: "upenn",
           user_email: "unknown",
@@ -61,7 +61,7 @@ const PhishingPage = () => {
     // Track purchase button click
     if (pageViewId) {
       try {
-        await axios.put(`http://localhost:8000/track/pageview/${pageViewId}/purchase-click`);
+        await axios.put(`${process.env.REACT_APP_API_URL}/track/pageview/${pageViewId}/purchase-click`);
       } catch (error) {
         console.error('Error tracking purchase click:', error);
       }
@@ -76,7 +76,7 @@ const PhishingPage = () => {
     // Track password entered
     if (pageViewId) {
       try {
-        await axios.put(`http://localhost:8000/track/pageview/${pageViewId}/password-entered`);
+        await axios.put(`${process.env.REACT_APP_API_URL}/track/pageview/${pageViewId}/password-entered`);
       } catch (error) {
         console.error('Error tracking password entry:', error);
       }
@@ -103,7 +103,7 @@ const PhishingPage = () => {
     // Track email entered if there's a value
     if (pennkey && pageViewId) {
       try {
-        await axios.put(`http://localhost:8000/track/pageview/${pageViewId}/email-entered`, null, {
+        await axios.put(`${process.env.REACT_APP_API_URL}/track/pageview/${pageViewId}/email-entered`, null, {
           params: { pennkey }
         });
       } catch (error) {
