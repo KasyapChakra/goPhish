@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 from fastapi.middleware.cors import CORSMiddleware
+import os
+import uvicorn
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -14,7 +16,7 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -106,3 +108,7 @@ async def reset_campaign(campaign_id: str):
     global page_views_db
     page_views_db = [view for view in page_views_db if view.campaign_id != campaign_id]
     return {"message": f"Reset tracking data for campaign: {campaign_id}"}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=True)
