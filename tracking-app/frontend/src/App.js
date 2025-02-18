@@ -1,21 +1,19 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import MetricsDashboard from './components/MetricsDashboard';
-import PhishingPage from './components/PhishingPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import StudentBundlePhishingPage from '../src/components/StudentBundlePhishingPage'
+import MetricsDashboard from '../src/components/MetricsDashboard'
+import InsuranceVerifyPhishingPage from '../src/components/InsuranceVerifyPhishingPage'
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <PhishingPage />,
-  },
-  {
-    path: "/metrics",
-    element: <MetricsDashboard />,
-  },
-]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<StudentBundlePhishingPage />} />
+        <Route path="/insurance" element={<InsuranceVerifyPhishingPage />} />
+        <Route path="/metrics" element={<MetricsDashboard />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

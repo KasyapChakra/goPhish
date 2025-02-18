@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from typing import List
 from dotenv import load_dotenv
 import os
+import random
 
 load_dotenv()
 
@@ -42,7 +43,7 @@ async def generate_phishing_email(participant_name: str, additional_context: str
     print("NAME IS ", participant_name, "CONTEXT IS ", additional_context)
     messages = [
         {"role": "system", "content": "You are a helpful assistant that specializes in generating phishing emails for security testing."},
-        {"role": "user", "content": f"Write a phishing email to {participant_name}. The email should look like it's from a trusted company, and it should attempt to extract sensitive information. Address the person by name. DO NOT INCLUDE A SUBJECT LINE, AND ONLY INCLUDE THE CONTENT OF THE EMAIL, NOTHING ELSE EXPLAINING IT OR ANYTHING ELSE. Here is some additional context, apply it if its there: {additional_context}"}
+        {"role": "user", "content": f"Write a phishing email to {participant_name}. The email should look like it's from the University of Pennsylvannia, and should be telling the user that they need to purchase their technology bundle because its a very good deal. Address the person by name. DO NOT INCLUDE A SUBJECT LINE, AND ONLY INCLUDE THE CONTENT OF THE EMAIL, NOTHING ELSE EXPLAINING IT OR ANYTHING ELSE. DO NOT INCLUDE A LINK, I WILL ADD IT MYSELF. Here is some additional context, apply it if its there: {additional_context}"}
     ]
 
     try:
@@ -60,10 +61,19 @@ async def generate_phishing_email(participant_name: str, additional_context: str
 async def send_email(to_email: str, email_body: str):
     print(f"GOT TO SEND WITH TO EMAIL: {to_email} AND BODY: {email_body}")
 
+    email_body += "\n\nHere is the link to purchase: https://gophish-1-xrnl.onrender.com/"
+
+    subject_options = [
+        "Urgent: Action Required!",
+        "Action Required: Time-Sensitive!",
+    ]
+    
+    subject = random.choice(subject_options)
+
     message = MIMEText(email_body)
     message["From"] = os.getenv("GMAIL_USER")  # Get the Gmail user from environment
     message["To"] = to_email
-    message["Subject"] = "Urgent: Action Required!"
+    message["Subject"] = subject
 
     # Connect to the Gmail SMTP server
     try:

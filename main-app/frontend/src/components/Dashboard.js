@@ -26,7 +26,7 @@ function Dashboard() {
     labels: ['January', 'February', 'March', 'April', 'May', 'June'],
     datasets: [
       {
-        label: 'Click-Through Rate (%)',
+        label: 'Time Spent on Fake Site (s)',
         data: [35, 30, 25, 20, 15, 10],
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
       },
@@ -74,7 +74,7 @@ function Dashboard() {
       },
       title: {
         display: true,
-        text: 'Phishing Rates Over Time',
+        text: 'Data over time',
       },
     },
     scales: {
@@ -170,7 +170,7 @@ function Dashboard() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
             <Paper withBorder shadow="sm" p="md">
               <Text size="lg" weight={500} align="center" mb="md">
-                Phishing Click-Through Rates
+                Time Spent on Fake Site
               </Text>
               <Bar data={clickThroughData} options={options} />
             </Paper>

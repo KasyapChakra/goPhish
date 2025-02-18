@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Text, TextInput, Textarea, Button, Group } from '@mantine/core';
+import { Modal, Text, TextInput, Textarea, Button, Group, Switch } from '@mantine/core';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
 import axios from 'axios'; // Import Axios for making API calls
 
@@ -9,6 +9,7 @@ function CreateCampaignModal({ opened, onClose }) {
   const [loading, setLoading] = useState(false); // Track loading state
   const [errorMessage, setErrorMessage] = useState(''); // Track error messages
   const [successMessage, setSuccessMessage] = useState(''); // Track success messages
+  const [abTest, setAbTest] = useState(false); // Track A/B Test toggle state
 
   // Function to handle adding a new participant field
   const addParticipantField = () => {
@@ -140,6 +141,15 @@ function CreateCampaignModal({ opened, onClose }) {
           maxRows={40}
         />
       </div>
+
+      <Group position="apart" mt="md" mb="md">
+        <Text size="md" weight={500}>Enable A/B Test</Text>
+        <Switch
+          checked={abTest}
+          onChange={(event) => setAbTest(event.currentTarget.checked)}
+          size="md"
+        />
+      </Group>
 
       {/* Error and Success Messages */}
       {errorMessage && <Text color="red" mb="sm">{errorMessage}</Text>}
