@@ -4,3 +4,4 @@
 /main-app/backend/.venv
 /tracking-app/backend/.venv
 .env
+/main-app/backend/venv

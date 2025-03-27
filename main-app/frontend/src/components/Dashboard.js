@@ -131,6 +131,13 @@ function Dashboard() {
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#483973')}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+              onClick={() => {
+                if (tab === 'Analytics') {
+                  navigate('/analytics');
+                } else if (tab === 'Home') {
+                  navigate('/dashboard');
+                }
+              }}
             >
               <Text size="md" align="left" style={{ paddingLeft: '20px', color: 'white' }}>
                 {tab}
